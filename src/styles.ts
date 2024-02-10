@@ -38,16 +38,32 @@ export type Theme = {
   navHeight: string;
 };
 
+// export const theme: DefaultTheme = {
+//   navHeight: "44px",
+//   colors: {
+//     black: "#1C222F",
+//     grey400: "#D2D2D2",
+//     grey600: "#777777",
+//     blue900: "#3B3C5F",
+//     blue100: "#F8F8FD",
+//     blue300: "#C9E5FF",
+//     blue400: "#0A11EB",
+//     blue200: "#E6F3FF",
+//     red400: "#EF4444",
+//     white: "#FFFFFF"
+//   }
+// };
+
 export const theme: DefaultTheme = {
   navHeight: "44px",
   colors: {
     black: "#1C222F",
-    grey400: "#D2D2D2",
-    grey600: "#777777",
+    grey400: "#000000",
+    grey600: "#000000",
     blue900: "#3B3C5F",
     blue100: "#F8F8FD",
     blue300: "#C9E5FF",
-    blue400: "#0A11EB",
+    blue400: "#53ac68",
     blue200: "#E6F3FF",
     red400: "#EF4444",
     white: "#FFFFFF"

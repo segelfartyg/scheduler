@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { StyledOutsideWrapperProps } from "./types";
 
 export const StyledOutsideWrapper = styled.div<StyledOutsideWrapperProps>`
-  position: absolute;
+  position: block;
   top: 0;
   bottom: 0;
   left: 0;

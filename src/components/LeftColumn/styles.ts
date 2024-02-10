@@ -11,6 +11,7 @@ export const StyledWrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 4px 15px rgba(39, 55, 75, 0.16);
   z-index: 2;
+  border-right: solid black 5px;
 `;
 
 export const StyledLeftColumnHeader = styled.div`
@@ -24,6 +25,7 @@ export const StyledLeftColumnHeader = styled.div`
   width: ${leftColumnWidth}px;
   background-color: ${({ theme }) => theme.colors.white};
   z-index: 3;
+  border-right: solid black 5px;
 `;
 
 export const StyledInput = styled.input`

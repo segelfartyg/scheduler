@@ -25,7 +25,7 @@ const LeftColumn: FC<LeftColumnProps> = ({
   return (
     <StyledWrapper>
       <StyledLeftColumnHeader>
-        <StyledInputWrapper isFocused={isInputFocused}>
+        {/* <StyledInputWrapper isFocused={isInputFocused}>
           <StyledInput
             placeholder={search}
             value={searchInputValue}
@@ -34,7 +34,7 @@ const LeftColumn: FC<LeftColumnProps> = ({
             onBlur={toggleFocus}
           />
           <Icon iconName="search" />
-        </StyledInputWrapper>
+        </StyledInputWrapper> */}
         <PaginationButton
           intent="previous"
           isVisible={pageNum !== 0}

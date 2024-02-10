@@ -1,52 +1,44 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
 import { createMockData } from "./mock/appMock";
 import { ParsedDatesRange } from "./utils/getDatesRange";
-import { ConfigFormValues, SchedulerProjectData } from "./types/global";
+import { ConfigFormValues, SchedulerData, SchedulerProjectData } from "./types/global";
 import ConfigPanel from "./components/ConfigPanel";
 import { StyledSchedulerFrame } from "./styles";
+import HeaderScheduler from "./components/HeaderScheduler";
 import { Scheduler } from ".";
 
 function App() {
-  const [values, setValues] = useState<ConfigFormValues>({
-    peopleCount: 15,
-    projectsPerYear: 5,
-    yearsCovered: 0,
-    startDate: undefined,
-    maxRecordsPerPage: 50,
-    isFullscreen: true
-  });
+  const [data, setData] = useState<SchedulerData>([]);
 
-  const { peopleCount, projectsPerYear, yearsCovered, isFullscreen, maxRecordsPerPage } = values;
+  useEffect(() => {
+    const temp: SchedulerData = [];
 
-  const mocked = useMemo(
-    () => createMockData(+peopleCount, +yearsCovered, +projectsPerYear),
-    [peopleCount, projectsPerYear, yearsCovered]
-  );
+    for (let i = 0; i < 200; i++) {
+      temp.push({
+        id: i.toString(),
+        label: {
+          icon: "https://picsum.photos/24",
+          title: "Hus",
+          subtitle: i.toString()
+        },
+        data: [
+          {
+            id: i.toString(),
+            startDate: new Date("2023-04-13T15:31:24.272Z"),
+            endDate: new Date("2023-08-28T10:28:22.649Z"),
+            occupancy: 3600,
+            title: "Project A",
+            subtitle: "Subtitle A",
+            description: "array indexing Salad West Account",
+            bgColor: "rgb(254,165,177)"
+          }
+        ]
+      });
+    }
 
-  const [range, setRange] = useState<ParsedDatesRange>({
-    startDate: new Date(),
-    endDate: new Date()
-  });
-
-  const handleRangeChange = useCallback((range: ParsedDatesRange) => {
-    setRange(range);
+    setData(temp);
   }, []);
-
-  const filteredData = useMemo(
-    () =>
-      mocked.map((person) => ({
-        ...person,
-        data: person.data.filter(
-          (project) =>
-            dayjs(project.startDate).isBetween(range.startDate, range.endDate) ||
-            dayjs(project.endDate).isBetween(range.startDate, range.endDate) ||
-            (dayjs(project.startDate).isBefore(range.startDate, "day") &&
-              dayjs(project.endDate).isAfter(range.endDate, "day"))
-        )
-      })),
-    [mocked, range.endDate, range.startDate]
-  );
 
   const handleFilterData = () => console.log(`Filters button was clicked.`);
 
@@ -57,31 +49,15 @@ function App() {
 
   return (
     <>
-      <ConfigPanel values={values} onSubmit={setValues} />
-      {isFullscreen ? (
-        <Scheduler
-          startDate={values.startDate ? new Date(values.startDate).toISOString() : undefined}
-          onRangeChange={handleRangeChange}
-          data={filteredData}
-          isLoading={false}
-          onTileClick={handleTileClick}
-          onFilterData={handleFilterData}
-          config={{ zoom: 0, maxRecordsPerPage: maxRecordsPerPage, lang: "sv" }}
-          onItemClick={(data) => console.log("clicked: ", data)}
-        />
-      ) : (
-        <StyledSchedulerFrame>
-          <Scheduler
-            startDate={values.startDate ? new Date(values.startDate).toISOString() : undefined}
-            onRangeChange={handleRangeChange}
-            isLoading={false}
-            data={filteredData}
-            onTileClick={handleTileClick}
-            onFilterData={handleFilterData}
-            onItemClick={(data) => console.log("clicked: ", data)}
-          />
-        </StyledSchedulerFrame>
-      )}
+      <HeaderScheduler />
+      <Scheduler
+        data={data}
+        isLoading={false}
+        onTileClick={handleTileClick}
+        onFilterData={handleFilterData}
+        config={{ zoom: 0, maxRecordsPerPage: 200, lang: "sv" }}
+        onItemClick={(data) => console.log("clicked: ", data)}
+      />
     </>
   );
 }
